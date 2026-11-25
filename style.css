@@ -1,0 +1,308 @@
+/* 讓整個畫面置中，並設定深色漸層背景 */
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #f8fafc;
+}
+
+/* 名片卡片本體 */
+.card {
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 20px;
+    padding: 40px 32px;
+    width: 320px;
+    text-align: center;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+}
+
+/* 圓形頭像 */
+.avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #38bdf8;
+    margin-bottom: 16px;
+}
+
+h1 {
+    margin: 0 0 8px 0;
+    font-size: 24px;
+}
+
+.title {
+    color: #38bdf8;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0 16px 0;
+}
+
+.bio {
+    color: #94a3b8;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+/* 按鈕區塊 */
+.links {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.btn {
+    text-decoration: none;
+    background-color: #38bdf8;
+    color: #0f172a;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+/* 滑鼠移過去時的互動效果 */
+.btn:hover {
+    background-color: #7dd3fc;
+    transform: translateY(-2px);
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: #38bdf8;
+    border: 1px solid #38bdf8;
+}
+
+.btn-outline:hover {
+    background-color: rgba(56, 189, 248, 0.1);
+}
+
+/* --- 以下為新增的互動與日間模式樣式 --- */
+
+/* 讓卡片成為定位基準，並加入平滑變色動畫 */
+.card {
+    position: relative;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+body {
+    transition: background 0.3s, color 0.3s;
+}
+
+/* 右上角日夜切換按鈕 */
+.theme-toggle {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: rgba(148, 163, 184, 0.15);
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+}
+
+/* 讓 button 標籤也能吃得到原本的按鈕樣式 */
+button.btn {
+    cursor: pointer;
+    font-family: inherit;
+}
+
+/* 日間模式（當 body 被加上 light-mode 類別時觸發） */
+body.light-mode {
+    background: linear-gradient(135deg, #e0f2fe, #f8fafc);
+    color: #0f172a;
+}
+
+body.light-mode .card {
+    background-color: #ffffff;
+    border-color: #cbd5e1;
+    box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.1);
+}
+
+body.light-mode .bio {
+    color: #475569;
+}
+
+body.light-mode .btn-outline {
+    color: #0284c7;
+    border-color: #0284c7;
+}/* --- 進階客製化樣式 --- */
+
+/* 套用 Google Fonts 雲端字體 */
+body {
+  font-family: 'Plus Jakarta Sans', 'Noto Sans TC', sans-serif;
+}
+
+/* 關鍵技巧：防止真實照片被壓扁或拉長，並加上邊框質感 */
+.avatar {
+  object-fit: cover;
+  border: 3px solid #38bdf8;
+}
+
+/* 調整卡片最大寬度，讓作品集區塊更好看 */
+.card {
+  max-width: 360px;
+}
+
+/* 社群文字連結列 */
+.social-bar {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.social-link {
+  color: #94a3b8;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.social-link:hover {
+  color: #38bdf8;
+}
+
+/* 作品集區塊 */
+.portfolio {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid #334155;
+  text-align: left;
+}
+
+.portfolio h2 {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #94a3b8;
+  margin: 0 0 12px 0;
+}
+
+.project-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.project-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(15, 23, 42, 0.5);
+  border: 1px solid #334155;
+  padding: 12px 14px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.project-item:hover {
+  transform: translateX(4px);
+  border-color: #38bdf8;
+}
+
+.project-info h3 {
+  margin: 0 0 4px 0;
+  font-size: 14px;
+}
+
+.project-info p {
+  margin: 0;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.arrow {
+  color: #38bdf8;
+  font-weight: bold;
+}
+
+/* 日間模式下的作品集配色適配 */
+body.light-mode .portfolio {
+  border-top-color: #e2e8f0;
+}
+
+body.light-mode .project-item {
+  background-color: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+body.light-mode .project-item:hover {
+  border-color: #0284c7;
+}
+
+body.light-mode .social-link {
+  color: #64748b;
+}
+
+body.light-mode .social-link:hover {
+  color: #0284c7;
+}/* --- SVG 社群圖示與打字機游標樣式 --- */
+
+/* 讓副標題在打字清空時依然保持固定高度，避免下方文字上下跳動 */
+.title {
+  min-height: 21px;
+}
+
+/* 打字機閃爍游標 */
+.cursor {
+  display: inline-block;
+  margin-left: 2px;
+  font-weight: 400;
+  animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* 社群 SVG 圖示按鈕 */
+.social-bar {
+  gap: 16px;
+}
+
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background-color: rgba(148, 163, 184, 0.1);
+  color: #94a3b8;
+  transition: transform 0.2s, background-color 0.2s, color 0.2s;
+}
+
+.social-icon:hover {
+  color: #38bdf8;
+  background-color: rgba(56, 189, 248, 0.15);
+  transform: translateY(-3px);
+}
+
+body.light-mode .social-icon {
+  background-color: #f1f5f9;
+  color: #64748b;
+}
+
+body.light-mode .social-icon:hover {
+  color: #0284c7;
+  background-color: #e0f2fe;
+}

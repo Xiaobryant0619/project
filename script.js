@@ -21,29 +21,45 @@ themeBtn.addEventListener("click", () => {
 
 const COUNTER_API = "https://api.counterapi.dev/v1/youbang-profile-2026/likes";
 
-// 1. 網頁一載入，先向雲端查詢目前全世界的總按讚數
+// 1. 先從本地讀取備援數字，保證畫面一打開絕對不會是空白 ()
+let currentLikes = Number(localStorage.getItem("my-profile-likes")) || 0;
+likeCountSpan.textContent = currentLikes;
+
+// 2. 嘗試向雲端查詢全球總數
 async function loadGlobalLikes() {
   try {
     const res = await fetch(COUNTER_API);
+    if (!res.ok) throw new Error("API 回應異常");
     const data = await res.json();
-    likeCountSpan.textContent = data.count || 0;
+    if (typeof data.count === "number") {
+      currentLikes = data.count;
+      likeCountSpan.textContent = currentLikes;
+      localStorage.setItem("my-profile-likes", currentLikes);
+    }
   } catch (error) {
-    console.error("讀取計數失敗:", error);
+    console.warn("雲端計數暫時無法連線，已自動切換為本地計數模式");
   }
 }
 loadGlobalLikes();
 
-// 2. 點擊按鈕時，呼叫 /up 讓雲端數字 +1 並更新畫面
+// 3. 點擊按鈕時：先立刻讓畫面數字 +1，再背景同步雲端
 likeBtn.addEventListener("click", async () => {
-  likeBtn.disabled = true; // 防止連點過快
+  currentLikes += 1;
+  likeCountSpan.textContent = currentLikes;
+  localStorage.setItem("my-profile-likes", currentLikes);
+
   try {
     const res = await fetch(`${COUNTER_API}/up`);
-    const data = await res.json();
-    likeCountSpan.textContent = data.count;
+    if (res.ok) {
+      const data = await res.json();
+      if (typeof data.count === "number") {
+        currentLikes = data.count;
+        likeCountSpan.textContent = currentLikes;
+        localStorage.setItem("my-profile-likes", currentLikes);
+      }
+    }
   } catch (error) {
-    alert("網路連線異常，請稍後再試！");
-  } finally {
-    likeBtn.disabled = false;
+    // 雲端失敗時數字也已經安全存在本地了
   }
 });
 

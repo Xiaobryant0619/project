@@ -305,4 +305,70 @@ body.light-mode .social-icon {
 body.light-mode .social-icon:hover {
   color: #0284c7;
   background-color: #e0f2fe;
+}/* --- 雲端留言表單樣式 --- */
+.contact-section {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid #334155;
+  text-align: left;
+}
+
+.contact-section h2 {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #94a3b8;
+  margin: 0 0 12px 0;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: rgba(15, 23, 42, 0.6);
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: #f8fafc;
+  font-family: inherit;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #38bdf8;
+}
+
+.submit-btn {
+  border: none;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.form-status {
+  font-size: 13px;
+  text-align: center;
+  margin: 10px 0 0 0;
+  color: #38bdf8;
+  min-height: 18px;
+}
+
+/* 日間模式表單適配 */
+body.light-mode .contact-section {
+  border-top-color: #e2e8f0;
+}
+
+body.light-mode .contact-form input,
+body.light-mode .contact-form textarea {
+  background-color: #f8fafc;
+  border-color: #cbd5e1;
+  color: #0f172a;
 }

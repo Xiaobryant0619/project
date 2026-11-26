@@ -19,15 +19,32 @@ themeBtn.addEventListener("click", () => {
   localStorage.setItem("theme", isLight ? "light" : "dark");
 });
 
-// 3. 功能二：打招呼計數器（使用 localStorage 永久記憶，重整不歸零）
-let count = Number(localStorage.getItem("likeCount")) || 0;
-likeCountSpan.textContent = count;
+const COUNTER_API = "https://api.counterapi.dev/v1/youbang-profile-2026/likes";
 
-likeBtn.addEventListener("click", () => {
-  count = count + 1;
-  likeCountSpan.textContent = count;
-  // 把最新數字存進瀏覽器
-  localStorage.setItem("likeCount", count);
+// 1. 網頁一載入，先向雲端查詢目前全世界的總按讚數
+async function loadGlobalLikes() {
+  try {
+    const res = await fetch(COUNTER_API);
+    const data = await res.json();
+    likeCountSpan.textContent = data.count || 0;
+  } catch (error) {
+    console.error("讀取計數失敗:", error);
+  }
+}
+loadGlobalLikes();
+
+// 2. 點擊按鈕時，呼叫 /up 讓雲端數字 +1 並更新畫面
+likeBtn.addEventListener("click", async () => {
+  likeBtn.disabled = true; // 防止連點過快
+  try {
+    const res = await fetch(`${COUNTER_API}/up`);
+    const data = await res.json();
+    likeCountSpan.textContent = data.count;
+  } catch (error) {
+    alert("網路連線異常，請稍後再試！");
+  } finally {
+    likeBtn.disabled = false;
+  }
 });
 
 // 4. 功能三：打字機動態文字循環效果
@@ -72,4 +89,30 @@ function typeEffect() {
 }
 
 // 網頁載入後啟動打字機效果
-typeEffect();
+typeEffect();// --- 新增「功能四：無跳轉雲端留言表單」 ---
+const contactForm = document.getElementById("contact-form");
+const formStatus = document.getElementById("form-status");
+
+contactForm.addEventListener("submit", async (e) => {
+  e.preventDefault(); // 阻止瀏覽器預設跳轉到 Formspree 感謝頁
+  formStatus.textContent = "傳送中...";
+
+  const formData = new FormData(contactForm);
+
+  try {
+    const response = await fetch(contactForm.action, {
+      method: "POST",
+      body: formData,
+      headers: { Accept: "application/json" }
+    });
+
+    if (response.ok) {
+      formStatus.textContent = "✅ 留言已成功寄出，謝謝你！";
+      contactForm.reset(); // 清空輸入框
+    } else {
+      formStatus.textContent = "❌ 傳送失敗，請檢查表單網址是否正確。";
+    }
+  } catch (error) {
+    formStatus.textContent = "❌ 網路錯誤，無法送出留言。";
+  }
+});

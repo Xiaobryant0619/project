@@ -74,6 +74,17 @@
         </a>
       </div>
     </section>
+    <!-- 新增：真實雲端留言表單（把 action 換成你剛剛在 Formspree 複製的網址） -->
+    <section class="contact-section">
+      <h2>傳送訊息給我</h2>
+      <form id="contact-form" action="https://formspree.io/f/你的表單ID" method="POST" class="contact-form">
+        <input type="text" name="name" placeholder="你的名字" required>
+        <input type="email" name="email" placeholder="你的 Email（方便我回覆你）" required>
+        <textarea name="message" rows="3" placeholder="想對我說的話..." required></textarea>
+        <button type="submit" class="btn submit-btn">送出留言 ✉️</button>
+      </form>
+      <p id="form-status" class="form-status"></p>
+    </section>
   </main>
 
   <script src="script.js"></script>

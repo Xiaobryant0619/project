@@ -371,4 +371,8 @@ body.light-mode .contact-form textarea {
   background-color: #f8fafc;
   border-color: #cbd5e1;
   color: #0f172a;
+}/* 防止瀏覽器自動填入把輸入框變成白底 */
+.contact-form input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px #0f172a inset !important;
+  -webkit-text-fill-color: #f8fafc !important;
 }

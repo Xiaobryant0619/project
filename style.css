@@ -216,6 +216,9 @@ body {
 .project-item:hover {
   transform: translateX(4px);
   border-color: #38bdf8;
+  transform: translateY(-3px);
+box-shadow: 0 8px 20px rgba(56, 189, 248, 0.15);
+border-color: #38bdf8;
 }
 
 .project-info h3 {
